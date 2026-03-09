@@ -5,7 +5,7 @@
 #define F first
 #define S second
 #define mem(x, y) memset((x), (y), sizeof(x))
-#define loli ios::sync_with_stdio(0), cin.tie(0);
+#define loli ios::sync_with_stdio(0), cin.tie(0)
 #define ALL(x) (x).begin(), (x).end()
 using namespace std;
 typedef long long ll;
