@@ -5,7 +5,7 @@
 #define F first
 #define S second
 #define mem(x, y) memset((x), (y), sizeof(x))
-#define loli ios::sync_with_stdio(0), cin.tie(0)
+#define loli ios::sync_with_stdio(0), cin.tie(0);
 #define ALL(x) (x).begin(), (x).end()
 using namespace std;
 typedef long long ll;
@@ -34,32 +34,31 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://zerojudge.tw/ShowProblem?problemid=e512
+// https://zerojudge.tw/ShowProblem?problemid=c007
 
 int main()
 {
-    loli;
-    vector<pair<double, double>> v(4);
-    while (cin >> v[0].F >> v[0].S >> v[1].F >> v[1].S >> v[2].F >> v[2].S >> v[3].F >> v[3].S)
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    bool first = true;
+    string s;
+    while (getline(cin, s))
     {
-        set<pair<double, double>> s;
-        pair<double, double> repeat;
-        for (int i = 0; i < 4; i++)
+
+        for (int i = 0; i < s.size(); i++)
         {
-            if (s.find(v[i]) == s.end())
-                s.insert(v[i]);
-            else
+            if (s[i] == '"')
             {
-                s.erase(v[i]);
-                repeat = v[i];
+                if (first)
+                    cout << "``";
+                else
+                    cout << "''";
+                first = !first;
             }
+            else
+                cout << s[i];
         }
-        pair<double, double> ans = {0, 0};
-        for (auto &p : s)
-        {
-            ans.F += p.F;
-            ans.S += p.S;
-        }
-        cout << fixed << setprecision(3) << ans.F - repeat.F << " " << ans.S - repeat.S << "\n";
+        cout << "\n";
     }
 }

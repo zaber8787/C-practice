@@ -34,32 +34,42 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://zerojudge.tw/ShowProblem?problemid=e512
 
 int main()
 {
     loli;
-    vector<pair<double, double>> v(4);
-    while (cin >> v[0].F >> v[0].S >> v[1].F >> v[1].S >> v[2].F >> v[2].S >> v[3].F >> v[3].S)
+    string s;
+    while (getline(cin, s))
     {
-        set<pair<double, double>> s;
-        pair<double, double> repeat;
-        for (int i = 0; i < 4; i++)
+        if (s == "END")
+            break;
+        for (int i = 0; i < s.size(); i++)
         {
-            if (s.find(v[i]) == s.end())
-                s.insert(v[i]);
-            else
+            if (s[i] == '!' && isdigit(s[i + 1]))
             {
-                s.erase(v[i]);
-                repeat = v[i];
+                string tmpF = s.substr(0, i), tmpS = s.substr(i + 2);
+                s = tmpF + char(int(!(bool(int(s[i + 1] - '0')))) + int('0')) + tmpS;
+                i -= 2;
             }
         }
-        pair<double, double> ans = {0, 0};
-        for (auto &p : s)
+        for (int i = 0; i < s.size(); i++)
         {
-            ans.F += p.F;
-            ans.S += p.S;
+            if (s[i] == '*')
+            {
+                string tmpF = s.substr(0, i - 1), tmpS = s.substr(i + 2);
+                s = tmpF + char(int(bool(s[i - 1] - '0') && bool(s[i + 1] - '0')) + int('0')) + tmpS;
+                i -= 2;
+            }
         }
-        cout << fixed << setprecision(3) << ans.F - repeat.F << " " << ans.S - repeat.S << "\n";
+        for (int i = 0; i < s.size(); i++)
+        {
+            if (s[i] == '+')
+            {
+                string tmpF = s.substr(0, i - 1), tmpS = s.substr(i + 2);
+                s = tmpF + char(int(bool(s[i - 1] - '0') || bool(s[i + 1] - '0')) + int('0')) + tmpS;
+                i -= 2;
+            }
+        }
+        print(s[0]);
     }
 }

@@ -34,32 +34,27 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://zerojudge.tw/ShowProblem?problemid=e512
+// https://cses.fi/problemset/task/1145
 
 int main()
 {
     loli;
-    vector<pair<double, double>> v(4);
-    while (cin >> v[0].F >> v[0].S >> v[1].F >> v[1].S >> v[2].F >> v[2].S >> v[3].F >> v[3].S)
+    int n, Max = 1;
+    cin >> n;
+    vector<int> v(n), dp(n);
+    for (int &i : v)
+        cin >> i;
+
+    for (int i = 0; i < n; i++)
     {
-        set<pair<double, double>> s;
-        pair<double, double> repeat;
-        for (int i = 0; i < 4; i++)
+        dp[i] = 1;
+        for (int j = 0; j < i; j++)
+            int mid = i / 2;
+        if (v[j] < v[i])
         {
-            if (s.find(v[i]) == s.end())
-                s.insert(v[i]);
-            else
-            {
-                s.erase(v[i]);
-                repeat = v[i];
-            }
+            dp[i] = max(dp[i], dp[j] + 1);
+            Max = max(Max, dp[i]);
         }
-        pair<double, double> ans = {0, 0};
-        for (auto &p : s)
-        {
-            ans.F += p.F;
-            ans.S += p.S;
-        }
-        cout << fixed << setprecision(3) << ans.F - repeat.F << " " << ans.S - repeat.S << "\n";
     }
+    print(Max);
 }

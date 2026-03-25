@@ -34,32 +34,7 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://zerojudge.tw/ShowProblem?problemid=e512
 
 int main()
 {
-    loli;
-    vector<pair<double, double>> v(4);
-    while (cin >> v[0].F >> v[0].S >> v[1].F >> v[1].S >> v[2].F >> v[2].S >> v[3].F >> v[3].S)
-    {
-        set<pair<double, double>> s;
-        pair<double, double> repeat;
-        for (int i = 0; i < 4; i++)
-        {
-            if (s.find(v[i]) == s.end())
-                s.insert(v[i]);
-            else
-            {
-                s.erase(v[i]);
-                repeat = v[i];
-            }
-        }
-        pair<double, double> ans = {0, 0};
-        for (auto &p : s)
-        {
-            ans.F += p.F;
-            ans.S += p.S;
-        }
-        cout << fixed << setprecision(3) << ans.F - repeat.F << " " << ans.S - repeat.S << "\n";
-    }
 }

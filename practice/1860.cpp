@@ -1,5 +1,6 @@
 #pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector")
 #include <bits/stdc++.h>
+#include "lib1860.h"
 #define pb push_back
 #define MP make_pair
 #define F first
@@ -34,32 +35,35 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://zerojudge.tw/ShowProblem?problemid=e512
 
 int main()
 {
-    loli;
-    vector<pair<double, double>> v(4);
-    while (cin >> v[0].F >> v[0].S >> v[1].F >> v[1].S >> v[2].F >> v[2].S >> v[3].F >> v[3].S)
+    double e = exp(-1);
+    int T = Start_The_Loli_Dream();
+    for (int i = 0; i < T; i++)
     {
-        set<pair<double, double>> s;
-        pair<double, double> repeat;
-        for (int i = 0; i < 4; i++)
+        int N = Count_How_Many_Loli();
+        int Max = INT_MIN;
+        int standard = double(N) * e;
+        for (int j = 1; j <= N; j++)
         {
-            if (s.find(v[i]) == s.end())
-                s.insert(v[i]);
+            int x = Get_Loli_Moeness();
+            if (j <= standard)
+            {
+                Max = max(Max, x);
+            }
             else
             {
-                s.erase(v[i]);
-                repeat = v[i];
+                if (x > Max)
+                {
+                    You_Choose_This_Loli();
+                    break;
+                }
+                if (j == N)
+                {
+                    You_Choose_This_Loli();
+                }
             }
         }
-        pair<double, double> ans = {0, 0};
-        for (auto &p : s)
-        {
-            ans.F += p.F;
-            ans.S += p.S;
-        }
-        cout << fixed << setprecision(3) << ans.F - repeat.F << " " << ans.S - repeat.S << "\n";
     }
 }

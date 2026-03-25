@@ -34,32 +34,58 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://zerojudge.tw/ShowProblem?problemid=e512
+// https://tioj.ck.tp.edu.tw/problems/1912
+
+int get_digit(int n)
+{
+    int cnt = 0;
+    if (n < 10)
+        return n;
+    while (n > 0)
+    {
+        cnt += n % 10;
+        n /= 10;
+    }
+    return get_digit(cnt);
+}
+
+int get_digit(const string &s)
+{
+    int cnt = 0;
+    for (char c : s)
+        cnt += c - '0';
+    return get_digit(cnt);
+}
+
+void output(string n, int num, set<string> &ans)
+{
+    string tmp = n;
+    for (int i = 0; i < tmp.size() + 1; i++)
+        ans.insert(tmp.substr(0, i) + to_string(num) + tmp.substr(i));
+}
 
 int main()
 {
     loli;
-    vector<pair<double, double>> v(4);
-    while (cin >> v[0].F >> v[0].S >> v[1].F >> v[1].S >> v[2].F >> v[2].S >> v[3].F >> v[3].S)
+    int n, m;
+    string digit;
+    cin >> n >> m >> digit;
+    int num;
+    set<string> ans;
+    for (int i = 0; i < 10; i++)
     {
-        set<pair<double, double>> s;
-        pair<double, double> repeat;
-        for (int i = 0; i < 4; i++)
+        if (get_digit(digit + to_string(i)) == m)
         {
-            if (s.find(v[i]) == s.end())
-                s.insert(v[i]);
-            else
-            {
-                s.erase(v[i]);
-                repeat = v[i];
-            }
+            num = i;
+            output(digit, num, ans);
         }
-        pair<double, double> ans = {0, 0};
-        for (auto &p : s)
-        {
-            ans.F += p.F;
-            ans.S += p.S;
-        }
-        cout << fixed << setprecision(3) << ans.F - repeat.F << " " << ans.S - repeat.S << "\n";
+    }
+    int i = -1;
+    for (const auto &s : ans)
+    {
+        i++;
+        if (i == 0 || i == ans.size() - 1)
+            continue;
+        print(s);
     }
 }
