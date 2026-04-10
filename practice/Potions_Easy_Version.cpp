@@ -34,24 +34,25 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://cses.fi/problemset/task/1145
+// https://codeforces.com/problemset/problem/1526/C1
 
 int main()
 {
-    loli;
     int n;
     cin >> n;
     vector<int> v(n);
-    vector<int> dp;
     for (int &i : v)
         cin >> i;
-
-    for (int i = 0; i < n; i++)
+    vector<vector<int>> res(n + 1, vector<int>(n + 1, -1));
+    res[0][0] = 0;
+    for (int i = 1; i <= n; i++)
     {
-        if (dp.empty() || v[i] > dp.back())
-            dp.pb(v[i]);
-        else
-            *lower_bound(ALL(dp), v[i]) = v[i];
+        for (int j = 0; j <= i; j++)
+        {
+            res[i][j] = res[i - 1][j];
+
+            if (j > 0 && res[i - 1][j - 1] + v[i - 1] >= 0)
+        }
     }
-    print(dp.size());
+    print(res.back().back());
 }

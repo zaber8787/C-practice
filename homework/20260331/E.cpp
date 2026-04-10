@@ -34,24 +34,29 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://cses.fi/problemset/task/1145
 
 int main()
 {
-    loli;
     int n;
-    cin >> n;
-    vector<int> v(n);
-    vector<int> dp;
-    for (int &i : v)
-        cin >> i;
-
-    for (int i = 0; i < n; i++)
+    while (cin >> n)
     {
-        if (dp.empty() || v[i] > dp.back())
-            dp.pb(v[i]);
+        if (n == 0)
+            break;
+        if (n <= 3 || n % 2 == 1)
+            print("Impossible");
         else
-            *lower_bound(ALL(dp), v[i]) = v[i];
+        {
+            print(n + n / 2);
+            for (int i = 1; i < n; i++)
+            {
+                print(i, i + 1);
+                if (i <= n / 2)
+                {
+                    print(i, i + n / 2);
+                }
+                if (i == 1)
+                    print(i, n);
+            }
+        }
     }
-    print(dp.size());
 }

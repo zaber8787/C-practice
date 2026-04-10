@@ -34,24 +34,53 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://cses.fi/problemset/task/1145
 
 int main()
 {
     loli;
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    vector<int> dp;
-    for (int &i : v)
-        cin >> i;
+    string cmd;
+    string current = "http://www.acm.org/";
+    stack<string> backward, forward;
 
-    for (int i = 0; i < n; i++)
+    while (true)
     {
-        if (dp.empty() || v[i] > dp.back())
-            dp.pb(v[i]);
-        else
-            *lower_bound(ALL(dp), v[i]) = v[i];
+        cin >> cmd;
+
+        if (cmd == "VISIT")
+        {
+            string url;
+            cin >> url;
+            backward.push(current);
+            current = url;
+            while (!forward.empty())
+                forward.pop();
+            print(current);
+        }
+        else if (cmd == "BACK")
+        {
+            if (!backward.empty())
+            {
+                forward.push(current);
+                current = backward.top();
+                backward.pop();
+                print(current);
+            }
+            else
+                print("Ignored");
+        }
+        else if (cmd == "FORWARD")
+        {
+            if (!forward.empty())
+            {
+                backward.push(current);
+                current = forward.top();
+                forward.pop();
+                print(current);
+            }
+            else
+                print("Ignored");
+        }
+        else if (cmd == "QUIT")
+            break;
     }
-    print(dp.size());
 }

@@ -34,24 +34,26 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://cses.fi/problemset/task/1145
 
 int main()
 {
     loli;
+    map<string, int> mp;
     int n;
     cin >> n;
-    vector<int> v(n);
-    vector<int> dp;
-    for (int &i : v)
-        cin >> i;
-
+    string s;
+    cin.ignore();
     for (int i = 0; i < n; i++)
     {
-        if (dp.empty() || v[i] > dp.back())
-            dp.pb(v[i]);
+
+        getline(cin, s);
+        stringstream ss(s);
+        ss >> s;
+        if (mp.find(s) == mp.end())
+            mp[s] = 1;
         else
-            *lower_bound(ALL(dp), v[i]) = v[i];
+            mp[s]++;
     }
-    print(dp.size());
+    for (auto [key, value] : mp)
+        print(key, value);
 }

@@ -34,24 +34,41 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://cses.fi/problemset/task/1145
+// https://cses.fi/problemset/task/1634
+
+vector<int> coins, ans;
+int INF = 1e9 + 7;
+int solve(int n)
+{
+    if (n == 0)
+        return 0;
+    if (n < coins[0])
+        return INF;
+    if (ans[n] != -1)
+        return ans[n];
+    int tmp = INF;
+    for (int &i : coins)
+    {
+        if (i > n)
+            break;
+        int ck = solve(n - i);
+        if (ck != INF)
+            tmp = min(tmp, 1 + ck);
+    }
+    ans[n] = tmp;
+    return ans[n];
+}
 
 int main()
 {
-    loli;
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    vector<int> dp;
-    for (int &i : v)
-        cin >> i;
+    int n, x;
+    cin >> n >> x;
 
-    for (int i = 0; i < n; i++)
-    {
-        if (dp.empty() || v[i] > dp.back())
-            dp.pb(v[i]);
-        else
-            *lower_bound(ALL(dp), v[i]) = v[i];
-    }
-    print(dp.size());
+    coins.resize(n);
+    ans.resize(x + 1, -1);
+
+    for (int &i : coins)
+        cin >> i;
+    sort(ALL(coins));
+    print(solve(x) < INF ? solve(x) : -1);
 }

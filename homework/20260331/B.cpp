@@ -34,24 +34,38 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://cses.fi/problemset/task/1145
 
 int main()
 {
     loli;
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    vector<int> dp;
-    for (int &i : v)
-        cin >> i;
-
-    for (int i = 0; i < n; i++)
+    int n, m;
+    while (cin >> n)
     {
-        if (dp.empty() || v[i] > dp.back())
-            dp.pb(v[i]);
-        else
-            *lower_bound(ALL(dp), v[i]) = v[i];
+        map<string, ll> mp;
+        for (int i = 0; i < n; i++)
+        {
+            string s;
+            cin >> s;
+            mp[s] = 0;
+        }
+        cin >> m;
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                ll t;
+                string s;
+                cin >> t >> s;
+                mp[s] += t;
+            }
+            ll memory_price = mp["memory"];
+            int cnt = 1;
+            for (auto &i : mp)
+            {
+                if (i.S > memory_price)
+                    cnt++;
+            }
+            print(cnt);
+        }
     }
-    print(dp.size());
 }

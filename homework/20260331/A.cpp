@@ -34,24 +34,36 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://cses.fi/problemset/task/1145
 
 int main()
 {
-    loli;
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    vector<int> dp;
-    for (int &i : v)
-        cin >> i;
-
-    for (int i = 0; i < n; i++)
+    int n, b;
+    vector<char> v = {'A', 'B', 'C', 'D', 'E'};
+    while (cin >> b >> n)
     {
-        if (dp.empty() || v[i] > dp.back())
-            dp.pb(v[i]);
-        else
-            *lower_bound(ALL(dp), v[i]) = v[i];
+        for (int j = 0; j < n; j++)
+        {
+            if (b == 1)
+            {
+                char tmp = v[0];
+                for (int i = 0; i < 4; i++)
+                    v[i] = v[i + 1];
+                v[4] = tmp;
+            }
+            if (b == 2)
+            {
+                char tmp = v.back();
+                for (int i = 4; i > 0; i--)
+                    v[i] = v[i - 1];
+                v[0] = tmp;
+            }
+            if (b == 3)
+                swap(v[0], v[1]);
+            if (b == 4)
+            {
+                print(v[0], v[1], v[2], v[3], v[4]);
+                break;
+            }
+        }
     }
-    print(dp.size());
 }
