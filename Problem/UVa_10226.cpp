@@ -39,10 +39,12 @@ int main()
 {
     // loli;
     int n;
-    cin >> n;
+    if (!(cin >> n))
+        return 0;
     string s;
-    cin.ignore();
-    for (int i = 0; i <= n; i++)
+    getline(cin, s); // eat newline after n
+    getline(cin, s); // eat the blank line
+    while (n--)
     {
         map<string, int> mp;
         int total = 0;
@@ -52,6 +54,8 @@ int main()
             total++;
         }
         for (auto &x : mp)
-            cout << x.F << " " << fixed << setprecision(4) << (double)x.S / total * 100 << "\n";
+            cout << x.F << " " << fixed << setprecision(4) << (double)x.S / total * 100.0 << "\n";
+        if (n)
+            cout << "\n";
     }
 }

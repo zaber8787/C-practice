@@ -42,34 +42,33 @@ int main()
     long long n, m;
     while (cin >> n >> m)
     {
-        vector<long long> v;
-        v.pb(n);
-        bool ck = false;
-        while (n != 1)
+        if (n < 2 || m < 2)
         {
-            if (m == 0)
-            {
-                ck = true;
-                break;
-            }
-            if (n % m == 0)
-                n /= m;
-            else
-            {
-                ck = true;
-                break;
-            }
-            if (n / m == n)
-            {
-                ck = true;
-                break;
-            }
-            v.pb(n);
-        }
-        if (ck)
             print("Boring!");
+            continue;
+        }
+        vector<long long> v;
+        long long tmp = n;
+        bool ok = true;
+        while (tmp > 1)
+        {
+            if (tmp % m != 0)
+            {
+                ok = false;
+                break;
+            }
+            v.pb(tmp);
+            tmp /= m;
+        }
+        if (ok && tmp == 1)
+        {
+            v.pb(1);
+            for (int i = 0; i < (int)v.size(); i++)
+                cout << v[i] << (i == (int)v.size() - 1 ? "\n" : " ");
+        }
         else
-            for (int i = 0; i < v.size(); i++)
-                cout << v[i] << (i == v.size() - 1 ? "\n" : " ");
+        {
+            print("Boring!");
+        }
     }
 }

@@ -38,12 +38,22 @@ ostream &print(T a, Args... args)
 
 int main()
 {
-    loli int n;
-    cin >> n;
-    for (int i = 1; i <= n; i++)
+    loli int S;
+    cin >> S;
+    while (S--)
     {
-        double p, q, req;
-        cin >> p >> q >> req;
-        cout << fixed << setprecision(4) << (pow(1 - q, req - 1) * q) / (1 - pow(1 - q, p)) << "\n";
+        int N, I;
+        double p;
+        cin >> N >> p >> I;
+        if (p == 0)
+        {
+            cout << "0.0000\n";
+        }
+        else
+        {
+            double q = 1.0 - p;
+            double ans = p * pow(q, I - 1) / (1.0 - pow(q, N));
+            cout << fixed << setprecision(4) << ans << "\n";
+        }
     }
 }

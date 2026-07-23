@@ -34,25 +34,21 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://codeforces.com/problemset/problem/1526/C1
 
 int main()
 {
     int n;
-    cin >> n;
-    vector<int> v(n);
-    for (int &i : v)
-        cin >> i;
-    vector<vector<int>> res(n + 1, vector<int>(n + 1, -1));
-    res[0][0] = 0;
-    for (int i = 1; i <= n; i++)
+    while (cin >> n)
     {
-        for (int j = 0; j <= i; j++)
+        for (int i = 1; i <= n; i++)
         {
-            res[i][j] = res[i - 1][j];
-
-            if (j > 0 && res[i - 1][j - 1] + v[i - 1] >= 0)
+            if (n % 2 == 1 && i % 2 == 1)
+            {
+                print("nuk csie\n");
+            }
+            else if (n % 2 == 0 && i % 2 == 0)
+                print("hello world!\n");
         }
+        print();
     }
-    print(res.back().back());
 }

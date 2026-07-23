@@ -44,6 +44,7 @@ struct team
     int win = 0;
     int tie = 0;
     int lost = 0;
+    int gs = 0;
     int ga = 0;
 };
 
@@ -68,36 +69,117 @@ result game_analyze(string s)
     while (s[ptr] != '@')
         ptr++;
     ans.Ascore = stoi(s.substr(tmp, ptr - tmp));
-
     tmp = ++ptr;
     while (s[ptr] != '#')
         ptr++;
     ans.Bscore = stoi(s.substr(tmp, ptr - tmp));
-
     ptr++;
     ans.teamB = s.substr(ptr, s.size() - ptr);
+    if (ans.Bscore > ans.Ascore)
+    {
+        swap(ans.teamA, ans.teamB);
+        swap(ans.Bscore, ans.Ascore);
+    }
 
     return ans;
+}
+
+string lower_string(string s)
+{
+    for (auto &i : s)
+        if (isalpha(i))
+            i = tolower(i);
+    return s;
+}
+
+bool cmp(team a, team b)
+{
+    if (a.tp < b.tp)
+        return false;
+    if (a.tp > b.tp)
+        return true;
+    if (a.win < b.win)
+        return false;
+    if (a.win > b.win)
+        return true;
+    if ((a.gs - a.ga) < (b.gs - b.ga))
+        return false;
+    if ((a.gs - a.ga) > (b.gs - b.ga))
+        return true;
+    if (a.gs < b.gs)
+        return false;
+    if (a.gs > b.gs)
+        return true;
+    if (a.gp > b.gp)
+        return false;
+    if (a.gp < b.gp)
+        return true;
+    if (lower_string(a.name) > lower_string(b.name))
+        return false;
+    return true;
 }
 
 int main()
 {
     int n;
     cin >> n;
+    cin.ignore();
     for (int i = 0; i < n; i++)
     {
         string name;
         getline(cin, name);
         int tmp;
         cin >> tmp;
-        vector<team> teams(t);
-        for (auto j : teams)
+        cin.ignore();
+        vector<team> teams(tmp);
+        for (auto &j : teams)
             getline(cin, j.name);
         cin >> tmp;
+        cin.ignore();
         string s;
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < tmp; j++)
         {
             getline(cin, s);
+            result temp = game_analyze(s);
+            for (auto &k : teams)
+            {
+                if (k.name != temp.teamA)
+                    continue;
+                k.gs += temp.Ascore;
+                k.gp++;
+                k.ga += temp.Bscore;
+                if (temp.Ascore == temp.Bscore)
+                {
+                    k.tp++;
+                    k.tie++;
+                }
+                else
+                {
+                    k.win++;
+                    k.tp += 3;
+                }
+            }
+            for (auto &k : teams)
+            {
+                if (k.name != temp.teamB)
+                    continue;
+                k.gs += temp.Bscore;
+                k.gp++;
+                k.ga += temp.Ascore;
+                if (temp.Ascore == temp.Bscore)
+                {
+                    k.tp++;
+                    k.tie++;
+                }
+                else
+                    k.lost++;
+            }
+        }
+        sort(teams.begin(), teams.end(), cmp);
+        print(name);
+        for (int j = 0; j < teams.size(); j++)
+        {
+            cout << j + 1 << ") " << teams[j].name << " " << teams[j].tp << "p, " << teams[j].gp << "g (" << teams[j].win << "-" << teams[j].tie << "-" << teams[j].lost << "), " << teams[j].gs - teams[j].ga << "gd (" << teams[j].gs << "-" << teams[j].ga << ")\n";
         }
     }
 }

@@ -34,7 +34,6 @@ ostream &print(T a, Args... args)
 }
 
 //--------------------Main Code--------------------
-// https://zerojudge.tw/ShowProblem?problemid=d097
 
 int main()
 {
@@ -42,15 +41,25 @@ int main()
     while (cin >> n)
     {
         vector<int> v(n);
+        for (int i = 0; i < n; i++)
+            cin >> v[i];
+        int cnt = 0;
+        bool ans = true;
         set<int> s;
-        for (int &i : v)
-            cin >> i;
         for (int i = 1; i < n; i++)
+        {
+            if (abs(v[i] - v[i - 1]) < 1 || abs(v[i] - v[i - 1]) > (n - 1) || s.count(abs(v[i] - v[i - 1])) > 0)
+            {
+                ans = false;
+                break;
+            }
             s.insert(abs(v[i] - v[i - 1]));
-
-        if (s.size() == n - 1)
-            print("Jolly");
-        else
-            print("Not jolly");
         }
+        if (ans)
+            cout << "Jolly\n"
+                 << flush;
+        else
+            cout << "Not jolly\n"
+                 << flush;
+    }
 }

@@ -37,17 +37,9 @@ ostream &print(T a, Args... args)
 
 int main()
 {
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        int a, b;
-        cin >> a >> b;
-        if (b > a || (a + b) % 2)
-        {
-            print("impossible");
-            continue;
-        }
-        print((a + b) / 2, (a + b) / 2 - b);
-    }
+    int m;
+    vector<int> v(m);
+    for (&i : v)
+        cin >> i;
+    
 }
