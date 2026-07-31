@@ -37,9 +37,26 @@ ostream &print(T a, Args... args)
 
 int main()
 {
-    int m;
-    vector<int> v(m);
-    for (&i : v)
+    int n;
+    cin >> n;
+    long long Min = INT_MAX;
+    vector<long long> v(n);
+    for (long long &i : v)
         cin >> i;
-    
+    long long total = pow(2, n);
+    for (long long i = 0; i < total - 1; i++)
+    {
+        long long tmp = i;
+        long long team1 = 0, team2 = 0;
+        for (int j : v)
+        {
+            if (tmp % 2)
+                team1 += j;
+            else
+                team2 += j;
+            tmp /= 2;
+        }
+        Min = min(Min, abs(team1 - team2));
+    }
+    print(Min);
 }
